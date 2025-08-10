@@ -20,7 +20,8 @@ If you encounter any issues or want to contribute new features, feel free to ope
 
 > **Note:** There is only release for Windows right now. In version 0.4 Linux version would be avalible.
 
-> **Known Bugs:** Downloading file causes the browser to crash.
+## Known Bugs
+- Downloading a file causes the browser to crash (will be fixed in a future release).
 
 ## How to install
 
