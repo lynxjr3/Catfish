@@ -29,7 +29,7 @@ To install go to [releases](https://github.com/lynxjr3/Catfish/releases) and dow
 #
 ## How to Contribute and Set Up the Development Environment
 
-If you want to contribute, modify the project, or make it your own, I recommend using **NetBeans 26** as the IDE.
+If you want to contribute, modify the project, or make it your own, I recommend using [**NetBeans 26**](https://netbeans.apache.org/front/main/index.html) as the IDE.
 You will need to download [**JCEF** (Java Chromium Embedded Framework)](https://github.com/jcefmaven/jcefbuild/releases/tag/1.0.66)
 After downloading, extract the JCEF files into a folder you create (make sure to extract **only the `bin` folder**). Then, add the following VM option to your project configuration:
 
