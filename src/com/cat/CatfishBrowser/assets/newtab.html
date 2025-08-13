@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>New Tab</title>
+<style>
+  :root{
+    --bg:#0f1724;
+    --card:#0b1220;
+    --muted:#9aa4b2;
+    --accent:#5eead4;
+    --text:#e6eef6;
+    --glass: rgba(255,255,255,0.04);
+    --trans: 0.25s;
+    --radius:14px;
+  }
+  :root.light{
+    --bg: #f5f7fb;
+    --card: rgba(255,255,255,0.8);
+    --muted:#556070;
+    --accent:#2563eb;
+    --text:#0b1220;
+    --glass: rgba(11,18,32,0.03);
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Inter, ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: transparent;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .wallpaper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://images.unsplash.com/photo-1697565051381-920de01483dd?auto=format');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: saturate(0.9) blur(0px) brightness(0.75);
+  z-index: -2;
+  transition: filter var(--trans);
+  background-color: var(--bg); /* fills any transparent edges to your bg color */
+}
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.45));
+    z-index: -1;
+    mix-blend-mode: normal;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+    min-height: 100vh;
+  }
+  @media (max-width:900px) {
+    .container {
+      grid-template-columns: 1fr;
+      padding: 18px;
+      margin: 22px auto;
+    }
+  }
+
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    border-radius: var(--radius);
+    padding: 20px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 6px 20px rgba(2,6,23,0.45);
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+
+  /* Left/main */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .clock {
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .greet {
+    font-size: 18px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .search {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .search select {
+    background: var(--glass);
+    border: 1px solid rgba(255,255,255,0.04);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .search form {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+  }
+  .search input {
+    flex: 1;
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    color: var(--text);
+  }
+  .search button {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    background: var(--accent);
+    color: #042029;
+  }
+  .quicklinks {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .quicklinks a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    border: 1px solid rgba(255,255,255,0.03);
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  /* footer small */
+  .footer {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 13px;
+    text-align: right;
+  }
+
+  /* small controls */
+  .controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  /* focus styles */
+  input:focus, select:focus, button:focus {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transform: translateY(-1px);
+    transition: transform var(--trans);
+  }
+
+  /* small helper */
+  .small {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .tag {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.18);
+    font-weight: 700;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+  <div class="wallpaper" id="wall"></div>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <div>
+          <div class="clock" id="clock">--:--</div>
+          <div class="greet" id="greet">Good day — Welcome!</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end; gap:8px;">
+          <div class="controls">
+            <div class="tag" id="dateSmall">—</div>
+          </div>
+          <div class="small" style="margin-top:6px;">Tip: press <strong>Enter</strong> in the search box to go</div>
+        </div>
+      </div>
+
+      <div class="search">
+        <select id="engine">
+          <option value="https://www.google.com/search?q=">Google</option>
+          <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+          <option value="https://www.bing.com/search?q=">Bing</option>
+          <option value="https://search.brave.com/search?q=">Brave</option>
+        </select>
+
+        <form id="searchForm" action="#" onsubmit="return doSearch();">
+          <input id="q" type="search" placeholder="Search the web or type a URL..." autofocus autocomplete="off" />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="quicklinks" id="quicklinks">
+	<a href="https://google.com">Google</a>
+        <a href="https://mail.google.com">Gmail</a>
+  	<a href="https://youtube.com">YouTube</a>
+  	<a href="https://www.reddit.com">Reddit</a>
+  	<a href="https://sites.google.com/view/thecatco">CatCo</a>
+  	<a href="catfish://cats">Random cat images!</a>
+	<a href="https://discord.com/app">Discord</a>
+      </div>
+
+      <div class="footer">Made with ♥ by LynxJr</div>
+    </div>
+  </div>
+
+<script>
+  function updateClock(){
+    const now = new Date();
+    const hh = now.getHours().toString().padStart(2,'0');
+    const mm = now.getMinutes().toString().padStart(2,'0');
+    document.getElementById('clock').textContent = hh + ':' + mm;
+    document.getElementById('dateSmall').textContent = now.toLocaleDateString();
+    const g = document.getElementById('greet');
+    if (now.getHours() < 12) g.textContent = 'Good morning!';
+    else if (now.getHours() < 18) g.textContent = 'Good afternoon!';
+    else g.textContent = 'Good evening!';
+  }
+  updateClock();
+  setInterval(updateClock, 1000*30);
+
+  const engineSelect = document.getElementById('engine');
+  const engineName = document.getElementById('engineName');
+  engineSelect.addEventListener('change', () => {
+    const selected = engineSelect.options[engineSelect.selectedIndex].text;
+    engineName.textContent = selected;
+  });
+
+  function doSearch(){
+    const q = document.getElementById('q').value.trim();
+    if (!q) return false;
+    if (/^((https?:\/\/)|www\.)/i.test(q) || /^[\w\-]+\.[a-z]{2,}/i.test(q)){
+      let url = q;
+      if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+      window.location.href = url;
+      return false;
+    }
+    const engine = engineSelect.value;
+    window.location.href = engine + encodeURIComponent(q);
+    return false;
+  }
+
+  document.addEventListener('keydown', (e)=>{
+    const active = document.activeElement.tagName;
+    if (active === 'INPUT' || active === 'TEXTAREA') return;
+    if (e.key === 's' || e.key === '/') {
+      e.preventDefault();
+      document.getElementById('q').focus();
+    }
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const n = parseInt(e.key,10);
+    if (!Number.isNaN(n) && n >=1 && n <=9) {
+      const link = document.querySelectorAll('#quicklinks a')[n-1];
+      if (link) window.open(link.href,'_blank');
+    }
+  });
+</script>
+</body>
+</html>
