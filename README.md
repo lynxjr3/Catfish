@@ -1,6 +1,6 @@
 ![logo](https://github.com/lynxjr3/Catfish/blob/main/logo.png)
 
-[Visit the site!](https://sites.google.com/view/thecatco/projects)
+[Visit the site!](https://catcom.pages.dev)
 # Catfish Browser Project
 
 Catfish Browser is a lightweight, open-source web browser built on Chromium. It aims to provide a fast and minimal browsing experience with low resource usage.
